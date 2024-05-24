@@ -24,12 +24,18 @@ displayCart();
 /* ------------------ Create Product ------------------ */
 productForm.addEventListener("submit", (e) => {
   e.preventDefault(); // prevent page refresh
-  const name = productName.value; // get value
-  const price = productPrice.value; // get value
+  
+  const name = productName.value.trim(); // get value
+  const price = productPrice.value.trim(); // get value
   const image = productImage.value.trim(); // get value and trim space
 
   // create object for archived product value
   const newProduct = { name, price, image };
+
+  // validation // check product will be added
+  if (!validation( products ,newProduct)) {
+    return; // if validation is false. stop the function
+  }
 
   // push object in array newProduct --> product
   products.push(newProduct);
@@ -43,6 +49,36 @@ productForm.addEventListener("submit", (e) => {
   productForm.reset();  // reset form
 });
 
+function validation( products ,newProduct) {
+  // validate price is number and <= 0
+  let price = parseFloat(newProduct.price); // convert string to number
+  if(isNaN(price) || price <= 0) {
+    alert("price must be a number and > 0");
+    return false;
+  }
+  newProduct.price = price.toFixed(2); // covert to 2 decimal
+
+  // validate imgUrl startWith http and https
+  if(!newProduct.image.startsWith("http") && !newProduct.image.startsWith("https")) {
+    alert("image url must start with http or https");
+    return false;
+  }
+
+  // validate imgUrl endWith .jpg and .png
+  if(!newProduct.image.endsWith(".jpg") && !newProduct.image.endsWith(".png")  && !newProduct.image.endsWith(".gif")) {
+    alert("image url must end with .jpg or .png or .gif");
+    return false;
+  }
+
+  // if product already exist call confirm
+  if (products.some((products) => products.name === newProduct.name)) { // check if product already exist
+    const confirmAdd = confirm("Product already exists. Do you want to add it?");
+    if (!confirmAdd) {
+      return false; // return false if confirmAdd is false
+    }
+  }
+  return true;  // return true if product not exist
+}
 
 /* ------------------ Add to Cart ------------------ */
 addToCart.addEventListener("click", () => {
@@ -59,7 +95,32 @@ addToCart.addEventListener("click", () => {
   })
 })
 
+/* ------------------ Action Button ------------------ */
+function deleteProduct(index) {
+  products.splice(index, 1);  // delete product at index position from products array.
+  
+  localStorage.setItem("products", JSON.stringify(products));  // update local storage
+  
+  displayProducts();  // call func displayProducts for update productDashboard
+}
 
+function deleteFormCart(index) {
+  cart.splice(index, 1);  // delete product at index position from cart array
+  
+  localStorage.setItem("cart", JSON.stringify(cart));  // update local storage
+  
+  displayCart();  // call func displayCart for update showCart
+}
+
+calTotalPrice.addEventListener("click", () => {
+  let total = 0;
+
+  cart.forEach((cart) => {
+    total += parseFloat(cart.price);
+  });
+
+  totalPrice.innerText = "Total Price: $" + total;
+})
 
 
 /* ------------------ Function Display ------------------ */
