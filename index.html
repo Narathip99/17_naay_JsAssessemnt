@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Assessment</title>
+
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body data-theme="lofi">
+    <main class="min-h-screen py-12">
+      <h1 class="text-5xl font-bold text-center">Shopping Cart</h1>
+
+      <!-- Add Product -->
+      <section class="container mx-auto my-12">
+        <div class="bg-gray-100 w-full rounded-sm shadow-md p-6">
+          <h2 class="text-xl font-bold mb-4">Add Item for selection</h2>
+          <form 
+            id="productForm"
+            class="grid grid-cols-1 lg:grid-cols-4 gap-4"
+          >
+            <label class="form-control">
+              <span>Product Name *</span>
+              <input
+                required
+                id="productName"
+                type="text"
+                placeholder="Product Name"
+                class="input input-bordered w-full"
+              />
+            </label>
+            <label class="form-control">
+              <span>Price *</span>
+              <input
+                required
+                id="productPrice"
+                type="text"
+                placeholder="Price"
+                class="input input-bordered w-full"
+              />
+            </label>
+            <label class="form-control">
+              <span>Image URL *</span>
+              <input
+                required
+                id="productImage"
+                type="text"
+                placeholder="Image URL"
+                class="input input-bordered w-full"
+              />
+            </label>
+            <div class="flex flex-col justify-end">
+              <button class="btn btn-primary" type="submit">
+                Create Product
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Product Dashboard -->
+      <section class="container mx-auto my-12">
+        <h2 class="text-2xl font-bold my-2">Product Dashboard</h2>
+        <div class="bg-gray-100 w-full rounded-sm shadow-md">
+          <!-- Parent div for displayProducts -->
+          <div
+            id="productDashboard"  
+            class="grid grid-cols-1"
+          >
+            <!-- Display Products -->
+          </div>
+        </div>
+        <button
+          id="addToCart"
+          class="btn btn-primary w-1/4 mt-6" 
+          type="submit"
+        >
+          Add to Cart
+        </button>
+      </section>
+
+      <!-- Cart -->
+      <section class="container mx-auto my-12">
+        <h2 class="text-2xl font-bold my-2">Cart</h2>
+        <div class="bg-gray-100 w-full rounded-sm shadow-md">
+          <!-- Parent div for displayProducts in Cart -->
+          <div
+            id="showCart" 
+            class="grid grid-cols-1 gap-6"
+          >
+            <!-- Display Products in Cart -->
+            
+            <!--        
+            <div class="flex items-center gap-4 p-6 border-y-2">
+              <img src="https://via.placeholder.com/150x150" alt="" />
+              <div class="flex-1">
+                <h3 class="text-xl font-semibold">Product 1</h3>
+                <p class="text-gray-800 font-medium">Price: $10.00</p>
+                <button class="btn btn-error h-8 min-h-8 mt-2">Delete</button>
+              </div>
+            </div> 
+            -->
+
+          </div>
+        </div>
+        <button 
+          id="calTotalPrice"  
+          class="btn btn-primary w-1/4 mt-6" 
+          type="submit">
+          Calculate Total Price
+        </button>
+      </section>
+
+      <!-- Summary -->
+      <section class="container mx-auto my-2">
+        <h1 class="text-4xl font-bold" id="totalPrice">You Have to pay: $0.00</h1>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
